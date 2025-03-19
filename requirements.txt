@@ -1,0 +1,4 @@
+pip~=23.2.1
+requests~=2.32.3
+pandas~=2.2.3
+RapidFuzz~=3.11.0
