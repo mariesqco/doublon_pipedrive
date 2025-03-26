@@ -43,7 +43,7 @@ def get_organizations_from_crm(name, api_token):
         "api_token": api_token
     }
     response = requests.get(search_url, params=params)
-    time.sleep(1.2)  # Pause pour respecter les limites de l'API
+    time.sleep(0.2)  # Pause pour respecter les limites de l'API
     if response.status_code == 200:
         data = response.json().get("data", {}).get("items", [])
         return [{"id": item["item"]["id"], "name": item["item"]["name"]} for item in data]
@@ -128,10 +128,10 @@ def main():
     df["org_name_crm"] = ""
     df["org_id_crm"] = ""
     df["similarity_score"] = 0.0
-    df["token_sort_score"] = 0.0
-    df["token_set_score"] = 0.0
-    df["partial_score"] = 0.0
-    df["token_ratio_score"] = 0.0
+    # df["token_sort_score"] = 0.0
+    # df["token_set_score"] = 0.0
+    # df["partial_score"] = 0.0
+    # df["token_ratio_score"] = 0.0
 
     print("#### Recherche des doublons en cours... ####")
     for index, row in tqdm(df.iterrows(), total=df.shape[0]):
@@ -150,10 +150,10 @@ def main():
             df.at[index, "org_name_crm"] = best_match["name"]
             df.at[index, "org_id_crm"] = best_match["id"]
             df.at[index, "similarity_score"] = round(similarity_score, 2)
-            df.at[index, "token_sort_score"] = round(token_sort, 2)
-            df.at[index, "token_set_score"] = round(token_set, 2)
-            df.at[index, "partial_score"] = round(partial, 2)
-            df.at[index, "token_ratio_score"] = round(token_ratio, 2)
+            # df.at[index, "token_sort_score"] = round(token_sort, 2)
+            # df.at[index, "token_set_score"] = round(token_set, 2)
+            # df.at[index, "partial_score"] = round(partial, 2)
+            # df.at[index, "token_ratio_score"] = round(token_ratio, 2)
 
     output_file = "results/results.csv"
     df.to_csv(output_file, index=False)
